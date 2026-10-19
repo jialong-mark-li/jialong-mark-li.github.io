@@ -6,7 +6,7 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 
 export default defineConfig({
-  site: "https://marklong7.github.io",
+  site: "https://jialong-mark-li.github.io",
   redirects: { "/presentations/": "/talks/" },
   integrations: [mdx(), sitemap()],
   markdown: {

@@ -9,7 +9,7 @@ export async function GET(context: { site?: URL }) {
   return rss({
     title: "Jialong (Mark) Li — Blog",
     description: "Research notes on experiments, modeling, machine learning, and digital markets.",
-    site: context.site ?? new URL("https://marklong7.github.io"),
+    site: context.site ?? new URL("https://jialong-mark-li.github.io"),
     items: posts.map((post) => ({
       title: post.data.title,
       description: post.data.summary,
