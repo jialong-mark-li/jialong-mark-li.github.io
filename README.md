@@ -2,6 +2,8 @@
 
 An Astro-based research website designed for GitHub Pages.
 
+Live website: https://jialong-mark-li.github.io/
+
 ## Local development
 
 ```bash
