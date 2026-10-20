@@ -1,0 +1,232 @@
+% ============================================================
+%  Jialong (Mark) Li — One-Page Resume (trial: research bullets removed)
+%  COMPILE WITH:  pdfLaTeX (default in Overleaf)
+%  FONT:          Palatino-style (newpxtext + newpxmath)
+% ============================================================
+
+\documentclass[10pt,letterpaper]{article}
+
+% ---------- Page + font ----------
+\usepackage[margin=0.5in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newpxtext,newpxmath}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{anyfontsize}
+
+% ---------- Hyperlinks (dark navy) ----------
+\definecolor{linknavy}{rgb}{0.1,0.1,0.5}
+\usepackage[colorlinks=true,
+            urlcolor=linknavy,
+            linkcolor=linknavy,
+            citecolor=linknavy]{hyperref}
+
+% ---------- Spacing constants (single source of truth) ----------
+\newlength{\sectionsep}\setlength{\sectionsep}{10pt}
+\newlength{\entrysep}\setlength{\entrysep}{4pt}
+\newlength{\advisorsep}\setlength{\advisorsep}{3pt}
+\newlength{\projectsep}\setlength{\projectsep}{2pt}
+
+% ---------- Page numbering ----------
+\pagestyle{empty}
+
+% ---------- Global spacing ----------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\tabcolsep}{0pt}
+\linespread{1.0}
+
+% ---------- Section style ----------
+\titleformat{\section}
+  {\normalsize\bfseries\raggedright}
+  {}{0pt}{\MakeUppercase}[\vspace{2pt}\titlerule]
+\titlespacing*{\section}{0pt}{6pt}{3pt}
+
+% ---------- Lists ----------
+\setlist[itemize]{leftmargin=0.25in, itemsep=1pt, topsep=1pt, parsep=0pt, partopsep=0pt, font=\normalfont, before=\small}
+\setlist[enumerate]{leftmargin=0.25in, itemsep=2pt, topsep=1pt, parsep=0pt, font=\normalfont, before=\small}
+\renewcommand\labelitemi{\raisebox{0.15ex}{\small$\bullet$}}
+\renewcommand\labelitemii{\raisebox{0.15ex}{\small$\circ$}}
+
+% ============================================================
+%  Reusable CV commands
+% ============================================================
+
+\newcommand{\cvheader}[5]{%
+  \begin{center}
+    {\fontsize{14pt}{18pt}\selectfont\textbf{#1}}\\[4pt]
+    {\small #2}\\[3pt]
+    {\small\textbf{Personal Website: \href{https://jialong-mark-li.github.io/}{jialong-mark-li.github.io}} $|$ \href{mailto:#3}{#3} $|$ \href{#4}{github.com/Marklong7} $|$ +1 (217) 729-0491}
+  \end{center}
+  \vspace{2pt}
+}
+
+\newcommand{\educationentry}[4]{%
+  \noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
+    {\small\textbf{#1}} & {\small #2} \\
+    {\small #3} & {\small #4}
+  \end{tabularx}\par\vspace{4pt}
+}
+
+\newcommand{\experienceentry}[4]{%
+  \noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
+    {\small\textbf{#1}, \textbf{#2}, #3} & {\small #4}
+  \end{tabularx}\par\vspace{1pt}%
+}
+
+\newcommand{\industryentry}[4]{%
+  \par\vspace{\projectsep}\noindent\begin{tabularx}{\textwidth}{@{}X r@{}}
+    {\small #3, #1, #2} & {\small #4} \\
+  \end{tabularx}\par\vspace{1pt}%
+}
+
+\newcommand{\advisor}[2]{%
+  \par\vspace{\advisorsep}{\leftskip=0.08in \small\noindent\textbf{Advisor: #1} (#2)\par}%
+}
+
+\newcommand{\project}[2]{%
+  \par\vspace{\projectsep}{\leftskip=0.20in \small\noindent #1 #2\par}%
+}
+
+% ============================================================
+\begin{document}
+\thispagestyle{empty}
+
+\cvheader
+  {Jialong (Mark) Li}
+  {Predoctoral Research Fellow, Stanford Graduate School of Business}
+  {markli@stanford.edu}
+  {https://github.com/Marklong7}
+  {September 2026}
+
+% ---------- Education ----------
+\section{Education}
+
+\educationentry
+  {Northwestern University}
+  {Dec 2024}
+  {M.S. in Machine Learning and Data Science}
+  {GPA: 3.83/4.00}
+
+\educationentry
+  {University of Illinois Urbana-Champaign (UIUC)}
+  {May 2023}
+  {B.S. in Statistics, with high distinction $|$ Minor in Computer Science}
+  {GPA: 3.84/4.00}
+
+{\small
+\textbf{PhD Courses:} Microeconomic Analysis I, Intermediate Econometrics I \& II, Structural Econometrics, Advanced Deep Learning.}
+
+% ---------- Research Interests ----------
+\section{Research Interests}
+{\small Algorithmic Systems, Recommendation Systems, Data Privacy, Generative AI, Statistics.}
+
+% ---------- Research Experience ----------
+\section{Research Experience}
+
+\experienceentry
+  {Stanford University}
+  {Graduate School of Business}
+  {Research Fellow}
+  {Aug 2025 -- Present}
+
+\advisor{Samuel Goldberg}{Marketing}
+\project{Project:}{What is Online Privacy Worth? Evidence from an Information Provision Experiment.}
+
+\advisor{Yuyan Wang}{Marketing}
+\project{Project 1:}{Beyond Black-Box: Structuring Recommender Systems Using Predicted Intents.}
+\project{Project 2:}{Can Explanations Improve Recommendations? Evidence from Prediction-Informed Explanations.}
+
+\advisor{Haim Mendelson}{Operations, Information \& Technology}
+\project{Project:}{Predicting U.S. Stock Market Illiquidity via LLM and Machine Learning Techniques.}
+
+\vspace{\entrysep}
+
+\experienceentry
+  {Northwestern University}
+  {Kellogg School of Management}
+  {Research Assistant}
+  {Jun 2024 -- Aug 2025}
+
+\advisor{Guy Aridor}{Marketing}
+\project{Project:}{What is Online Privacy Worth? Evidence from an Information Provision Experiment.}
+
+\vspace{\entrysep}
+
+\experienceentry
+  {Northwestern University}
+  {MAGICS Lab}
+  {Research Assistant}
+  {Feb 2024 -- May 2025}
+
+\advisor{Han Liu}{Computer Science, Statistics \& Data Science}
+\project{Project 1:}{Decoupled Alignment for Robust Plug-and-Play Adaptation.}
+\project{Project 2:}{LOBBen-TM: A Benchmark Study of Limit Order Book Prediction with Temporal Modeling.}
+\project{Project 3:}{Diffusion Models and Consistency Model Theory.}
+
+\vspace{\entrysep}
+
+\experienceentry
+  {University of Illinois Urbana-Champaign}
+  {IRisk Lab}
+  {Research Assistant}
+  {Aug 2022 -- Jan 2023}
+
+\advisor{Runhuan Feng \& Frank Quan}{Mathematics, Statistics}
+\project{Project:}{Privacy-Preserving Machine Learning for Insurance Data.}
+
+% ---------- Publications ----------
+\section{Publications}
+
+\begin{enumerate}[leftmargin=0.25in, itemsep=2pt, topsep=2pt]
+  \item \textbf{What is Online Privacy Worth? Evidence from an Information Provision Experiment.}\\
+  Guy Aridor, Samuel Goldberg, \textbf{Jialong Li}.\\
+  Conference version accepted for presentation at ACM Conference on Economics and Computation (EC 2026).
+
+  \item \textbf{Decoupled Alignment for Robust Plug-and-Play Adaptation.}\\
+  Haozheng Luo, Jiahao Yu, Wenxin Zhang, \textbf{Jialong Li}, Jerry Yao-Chieh Hu, Xinyu Xing, Han Liu.\\
+  Accepted at Conference on Language Modeling (COLM 2026).
+\end{enumerate}
+
+% ---------- Presentations and Peer Review ----------
+\section{Presentations and Peer Review}
+{\small \textbf{Presentation:} ACM Conference on Economics and Computation (EC 2026), Online, Jun 2026.\\
+\textbf{External Sub-reviewer:} ACM International Conference on Information and Knowledge Management (CIKM 2026).}
+
+% ---------- Industry Experience ----------
+\section{Industry Experience}
+
+\industryentry
+  {Lexlead.AI}
+  {Evanston, IL}
+  {LLM Engineer (Capstone)}
+  {Sep 2024 -- Dec 2024}
+
+\industryentry
+  {Convident}
+  {Evanston, IL}
+  {Founding Audio AI Engineer}
+  {Jul 2024 -- Sept 2024}
+
+\industryentry
+  {Calamos Investment}
+  {Chicago, IL}
+  {Data Scientist (Practicum)}
+  {Oct 2023 -- Jun 2024}
+
+\industryentry
+  {Hangzhou Diagens Biotechnology (2526.HK)}
+  {Hangzhou, China}
+  {Computer Vision Engineer Intern}
+  {Jun 2023 -- Aug 2023}
+
+\industryentry
+  {Zhongtai Securities (ZTSC)}
+  {Jinan, China}
+  {Machine Learning Engineer Intern}
+  {Jun 2021 -- Aug 2021}
+
+\end{document}
