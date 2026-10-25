@@ -2,6 +2,7 @@
 import { getImage } from "astro:assets";
 import educationLogos from "../assets/education-logos.png";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import EmpiricalLearningMatrix from "../components/EmpiricalLearningMatrix.astro";
 import { cvUrl } from "../config/site";
 
 const site = Astro.site ?? Astro.url;
@@ -106,7 +107,7 @@ const personSchema = {
             Information &amp; Technology at the Stanford Graduate School of Business.
           </p>
           <p>
-            I study how humans and black-box algorithms interact in digital markets. Working across computer science, statistics, and economics, I combine machine learning with human decision-making to build AI systems that advance both technical performance (accuracy and efficiency) and social impact (privacy and welfare).
+            I am an empirical researcher using machine learning, causal inference, and statistics to study how information and technology shape behavior and market outcomes. My interests include digital platforms, algorithmic design, and the economic consequences of AI.
           </p>
           <ul class="intro-links" aria-label="Contact and academic links">
             <li><a class="action-link email-link" href="mailto:markli@stanford.edu">markli@stanford.edu</a></li>
@@ -118,6 +119,8 @@ const personSchema = {
         </div>
       </div>
     </section>
+
+    <EmpiricalLearningMatrix />
 
     <section class="education shell" aria-labelledby="education-title">
       <h2 id="education-title">Education</h2>
