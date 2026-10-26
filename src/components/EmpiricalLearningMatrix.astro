@@ -5,19 +5,17 @@ const regimes = [
     title: "Foundation Models",
     example: "e.g., LLMs",
     information: "High",
-    rules: "Complex, context-dependent patterns",
-    data: "Massive, cross-domain text corpora",
-    feedback: "Dense self-supervised training signals",
-    solution: "Large-scale pretraining & representation learning",
+    rules: "Complex, contextual language patterns",
+    signals: "Rich text and training signals",
+    solution: "Pretraining & scaling",
   },
   {
     area: "markets",
     title: "Human Digital Markets",
-    example: "My Research Focus",
+    example: "My research focus",
     information: "Low",
-    rules: "Heterogeneous decisions & strategic adaptation",
-    data: "Sparse, policy-shaped behavioral signals",
-    feedback: "Hidden preferences & missing counterfactuals",
+    rules: "Adaptive decisions & strategic responses",
+    signals: "Policy-shaped data; missing counterfactuals",
     solution: "?",
   },
   {
@@ -25,20 +23,33 @@ const regimes = [
     title: "Closed Games",
     example: "e.g., AlphaGo Zero",
     information: "High",
-    rules: "Fixed, fully specified game rules",
-    data: "Scalable self-play simulations",
-    feedback: "Explicit rewards & repeatable trials",
-    solution: "Simulation, search & reinforcement learning",
+    rules: "Fixed rules and explicit rewards",
+    signals: "Repeatable self-play simulations",
+    solution: "Simulation, search & RL",
   },
   {
     area: "physics",
     title: "Classical Physics",
     example: "e.g., Planetary Orbits",
     information: "Low",
-    rules: "Stable, known governing laws",
-    data: "Limited real-world measurements",
-    feedback: "Real-world trajectories cannot be freely reset",
-    solution: "Theory-driven modeling & parameter estimation",
+    rules: "Stable governing laws",
+    signals: "Limited real-world observations",
+    solution: "Theory-driven modeling",
+  },
+];
+
+const transfers = [
+  {
+    source: "Foundation Models → Digital Markets",
+    description: "Use high-dimensional learning, language reasoning, and multimodal representations to incorporate richer information into empirical models.",
+  },
+  {
+    source: "Classical Physics → Digital Markets",
+    description: "Use theory-guided modeling to capture underlying economic and behavioral mechanisms, including preferences, beliefs, and incentives.",
+  },
+  {
+    source: "Closed Games → Digital Markets",
+    description: "Translate simulator-based exploration into field experiments and causal inference to identify responses to alternative policies.",
   },
 ];
 ---
@@ -49,20 +60,21 @@ const regimes = [
     <p>An Empirical Learning Matrix</p>
   </header>
 
-  <div class="matrix-grid" aria-label="Four empirical modeling regimes by rule complexity and effective information availability">
-    <div class="information-axis">
-      <span class="desktop-axis">← Effective Information Availability</span>
-      <span class="mobile-axis">Effective Information Availability: High to Low</span>
-    </div>
+  <div class="matrix-grid" aria-label="Four regimes of empirical modeling by complexity of rules and effective information availability">
+    <div class="information-axis">← Effective Information Availability</div>
     <div class="information-label high-information">
       <strong>High</strong>
-      <span>Rich Signals &amp; Clear Feedback</span>
+      <span>Rich Signals &amp; Feedback</span>
     </div>
     <div class="information-label low-information">
       <strong>Low</strong>
-      <span>Partial Signals &amp; Limited Feedback</span>
+      <span>Limited Signals &amp; Feedback</span>
     </div>
-    <div class="rules-axis">Complexity of Rules ↑</div>
+
+    <div class="rules-axis">
+      <span class="rules-arrow" aria-hidden="true">↑</span>
+      <span class="rules-axis-name">Complexity of Rules</span>
+    </div>
     <div class="rules-label high-rules">
       <strong>High</strong>
       <span>Complex &amp; Adaptive</span>
@@ -71,6 +83,7 @@ const regimes = [
       <strong>Low</strong>
       <span>Simple &amp; Stable</span>
     </div>
+
     {regimes.map((regime) => (
       <article class:list={["regime", regime.area]}>
         <header>
@@ -80,18 +93,22 @@ const regimes = [
         </header>
         <h4>Condition</h4>
         <ul>
-          <li><strong>Rules:</strong> {regime.rules}</li>
-          <li><strong>Data:</strong> {regime.data}</li>
-          <li><strong>Feedback:</strong> {regime.feedback}</li>
+          <li>{regime.rules}</li>
+          <li>{regime.signals}</li>
         </ul>
         <p class="solution"><strong>Solution:</strong> {regime.solution}</p>
       </article>
     ))}
   </div>
 
-  <p class="matrix-caption">
-    I approach such questions by combining experiments and causal inference, machine learning, and economic modeling.
-  </p>
+  <div class="method-transfers" aria-label="Ideas from established approaches applied to digital markets">
+    {transfers.map((transfer) => (
+      <article class="transfer">
+        <h3>{transfer.source}</h3>
+        <p>{transfer.description}</p>
+      </article>
+    ))}
+  </div>
 </section>
 
 <style>
@@ -100,7 +117,9 @@ const regimes = [
   }
 
   .matrix-heading {
-    margin-bottom: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: 2px solid var(--palette-box-border);
+    margin-bottom: var(--space-5);
   }
 
   .matrix-heading h2 {
@@ -119,7 +138,7 @@ const regimes = [
 
   .matrix-grid {
     display: grid;
-    grid-template-columns: var(--space-6) minmax(0, 0.4fr) repeat(2, minmax(0, 1fr));
+    grid-template-columns: var(--space-6) minmax(0, 0.32fr) repeat(2, minmax(0, 1fr));
     grid-template-areas:
       ". . axis axis"
       ". . infohigh infolow"
@@ -132,30 +151,28 @@ const regimes = [
   .information-axis {
     grid-area: axis;
     text-align: center;
-    font-weight: var(--weight-semibold);
     font-size: var(--text-small);
+    font-weight: var(--weight-semibold);
     line-height: var(--leading-snug);
-  }
-
-  .mobile-axis,
-  .mobile-information {
-    display: none;
   }
 
   .information-label {
     display: flex;
     flex-direction: column;
-    text-align: center;
     gap: var(--space-1);
+    align-items: center;
+    text-align: center;
     font-size: var(--text-small);
     line-height: var(--leading-snug);
   }
 
-  .information-label strong {
+  .information-label strong,
+  .rules-label strong {
     font-weight: var(--weight-semibold);
   }
 
-  .information-label span {
+  .information-label span,
+  .rules-label span {
     color: var(--color-muted);
   }
 
@@ -164,14 +181,22 @@ const regimes = [
 
   .rules-axis {
     grid-area: rules;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
     align-self: center;
     justify-self: center;
+    white-space: nowrap;
     font-weight: var(--weight-semibold);
     font-size: var(--text-small);
     line-height: var(--leading-snug);
-    white-space: nowrap;
+  }
+
+  .rules-axis-name {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
   }
 
   .rules-label {
@@ -179,18 +204,10 @@ const regimes = [
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    text-align: right;
     gap: var(--space-1);
+    text-align: right;
     font-size: var(--text-small);
     line-height: var(--leading-snug);
-  }
-
-  .rules-label strong {
-    font-weight: var(--weight-semibold);
-  }
-
-  .rules-label span {
-    color: var(--color-muted);
   }
 
   .high-rules { grid-area: high; }
@@ -206,8 +223,23 @@ const regimes = [
     flex-direction: column;
     min-width: 0;
     padding: var(--space-5);
-    border: var(--border);
-    border-radius: var(--radius);
+    border: 1px solid var(--palette-box-border);
+    color: var(--color-text);
+  }
+
+  .regime.foundation,
+  .regime.markets {
+    border-bottom: 0;
+  }
+
+  .regime.foundation,
+  .regime.games {
+    border-right: 0;
+  }
+
+  .regime.markets {
+    background: var(--palette-privacy-control);
+    background: color-mix(in srgb, var(--palette-privacy-control) 45%, var(--color-background));
   }
 
   .regime h3 {
@@ -221,6 +253,10 @@ const regimes = [
     color: var(--color-muted);
     font-size: var(--text-small);
     line-height: var(--leading-snug);
+  }
+
+  .mobile-information {
+    display: none;
   }
 
   .regime h4 {
@@ -240,23 +276,42 @@ const regimes = [
     margin-top: var(--space-2);
   }
 
-  .regime li strong,
-  .solution strong {
-    font-weight: var(--weight-semibold);
-  }
-
   .regime .solution {
     margin: auto 0 0;
+    border-top: 1px solid var(--palette-reference);
     padding-top: var(--space-3);
-    border-top: var(--border);
     font-size: var(--text-small);
     line-height: var(--leading-snug);
   }
 
-  .matrix-caption {
-    max-width: var(--width-reading);
-    margin: var(--space-5) 0 0;
-    color: var(--color-muted);
+  .regime .solution strong {
+    font-weight: var(--weight-semibold);
+  }
+
+  .method-transfers {
+    margin-top: var(--space-7);
+    border-top: 2px solid var(--palette-box-border);
+  }
+
+  .transfer {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
+    gap: var(--space-6);
+    align-items: baseline;
+    padding: var(--space-4) 0;
+    border-bottom: var(--border);
+  }
+
+  .transfer h3 {
+    font-size: var(--text-body);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-normal);
+  }
+
+  .transfer p {
+    margin: 0;
+    font-size: var(--text-small);
+    line-height: var(--leading-body);
   }
 
   @media (max-width: 860px) {
@@ -270,28 +325,45 @@ const regimes = [
         "foundation markets"
         "low low"
         "games physics";
+      column-gap: var(--space-3);
+      row-gap: var(--space-2);
     }
 
     .rules-axis {
-      writing-mode: horizontal-tb;
-      transform: none;
+      flex-direction: row-reverse;
       justify-self: start;
       margin-top: var(--space-3);
     }
 
-    .rules-label {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      text-align: left;
+    .rules-axis-name {
+      writing-mode: horizontal-tb;
+      transform: none;
     }
 
-    .rules-label strong::after {
-      content: " ·";
+    .rules-label {
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: flex-start;
+      text-align: left;
+      gap: var(--space-2);
+    }
+
+    .regime {
+      padding: var(--space-4);
+    }
+
+    .regime.foundation,
+    .regime.games {
+      border-right: 1px solid var(--palette-box-border);
+    }
+
+    .regime.foundation,
+    .regime.markets {
+      border-bottom: 1px solid var(--palette-box-border);
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 620px) {
     .matrix-grid {
       grid-template-columns: minmax(0, 1fr);
       grid-template-areas:
@@ -306,14 +378,8 @@ const regimes = [
       row-gap: var(--space-2);
     }
 
-    .information-label,
-    .desktop-axis {
+    .information-label {
       display: none;
-    }
-
-    .mobile-axis,
-    .mobile-information {
-      display: block;
     }
 
     .information-axis {
@@ -321,22 +387,17 @@ const regimes = [
       text-align: left;
     }
 
-    .rules-label {
-      margin-top: var(--space-3);
-    }
-
-    .regime {
-      padding: var(--space-4);
-    }
-
     .mobile-information {
+      display: block;
       margin: 0 0 var(--space-2);
-      color: var(--color-muted);
       font-size: var(--text-small);
+      color: var(--color-muted);
+      line-height: var(--leading-snug);
     }
 
-    .matrix-caption {
-      margin-top: var(--space-4);
+    .transfer {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
     }
   }
 </style>
