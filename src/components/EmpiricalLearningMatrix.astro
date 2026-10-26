@@ -101,6 +101,10 @@ const transfers = [
     ))}
   </div>
 
+  <p class="matrix-explanation">
+    Foundation models benefit from rich training signals, physics from known laws, and closed games from repeatable simulations. Digital markets instead combine adaptive behavior with incomplete, policy-shaped observations. These contrasts suggest three modeling approaches:
+  </p>
+
   <div class="method-transfers" aria-label="Ideas from established approaches applied to digital markets">
     {transfers.map((transfer) => (
       <article class="transfer">
@@ -290,8 +294,15 @@ const transfers = [
     font-weight: var(--weight-semibold);
   }
 
+  .matrix-explanation {
+    max-width: var(--width-reading);
+    margin: var(--space-6) 0 0;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
   .method-transfers {
-    margin-top: var(--space-7);
+    margin-top: var(--space-5);
     border-top: 2px solid var(--palette-box-border);
   }
 
