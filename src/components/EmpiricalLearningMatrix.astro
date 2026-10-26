@@ -144,8 +144,8 @@ const transfers = [
       ". . infohigh infolow"
       "rules high foundation markets"
       "rules low games physics";
-    column-gap: var(--space-3);
-    row-gap: var(--space-3);
+    column-gap: 0;
+    row-gap: 0;
   }
 
   .information-axis {
@@ -164,6 +164,7 @@ const transfers = [
     text-align: center;
     font-size: var(--text-small);
     line-height: var(--leading-snug);
+    padding-bottom: var(--space-3);
   }
 
   .information-label strong,
@@ -208,6 +209,7 @@ const transfers = [
     text-align: right;
     font-size: var(--text-small);
     line-height: var(--leading-snug);
+    padding-right: var(--space-3);
   }
 
   .high-rules { grid-area: high; }
@@ -325,7 +327,7 @@ const transfers = [
         "foundation markets"
         "low low"
         "games physics";
-      column-gap: var(--space-3);
+      column-gap: 0;
       row-gap: var(--space-2);
     }
 
