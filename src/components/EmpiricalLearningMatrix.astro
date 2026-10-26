@@ -45,11 +45,11 @@ const transfers = [
   },
   {
     source: "Classical Physics → Digital Markets",
-    description: "Use theory-guided modeling to capture underlying economic and behavioral mechanisms, including preferences, beliefs, and incentives.",
+    description: "Borrow theory-guided modeling to represent how preferences, beliefs, and incentives generate observed decisions, rather than merely fitting behavioral patterns.",
   },
   {
     source: "Closed Games → Digital Markets",
-    description: "Translate simulator-based exploration into field experiments and causal inference to identify responses to alternative policies.",
+    description: "Use experiments and causal inference to identify how behavior changes under alternative policies when real-world decisions cannot be replayed.",
   },
 ];
 ---
@@ -102,7 +102,10 @@ const transfers = [
   </div>
 
   <p class="matrix-explanation">
-    As empirical researchers, we would ideally have the lower-left corner: clear, stable rules and abundant, repeatable feedback. Digital markets often lack both—behavior adapts, and the observations we collect depend on existing policies. Scaling can improve prediction, but no comparable scaling law tells us how to recover latent preferences or counterfactual responses from those observations alone. I therefore adapt three established modeling approaches:
+    As empirical researchers, we would ideally work in the lower-left corner: known rules and rich, repeatable feedback. Digital markets rarely offer both. Consumer and firm decisions depend on context and incentives, while historical data largely reflect existing policies rather than the alternatives we wish to evaluate. More data and computation alone cannot overcome these limitations.
+  </p>
+  <p class="method-introduction">
+    This motivates me to learn from three established modeling paradigms and explore how their strengths might be adapted to digital markets:
   </p>
 
   <div class="method-transfers" aria-label="Ideas from established approaches applied to digital markets">
@@ -115,7 +118,7 @@ const transfers = [
   </div>
 
   <p class="research-goal">
-    My aim is to build empirical models that can explain what we observe, assess what could happen under alternative policies, and guide algorithm and market design.
+    My goal is to understand what observed behavior alone cannot reveal—preferences, incentives, and counterfactual responses—and build that understanding directly into the design of algorithms and market mechanisms.
   </p>
 </section>
 
@@ -300,6 +303,12 @@ const transfers = [
 
   .matrix-explanation {
     margin: var(--space-6) 0 0;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+
+  .method-introduction {
+    margin: var(--space-3) 0 0;
     font-size: var(--text-body);
     line-height: var(--leading-body);
   }
