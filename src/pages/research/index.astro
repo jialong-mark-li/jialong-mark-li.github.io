@@ -15,22 +15,26 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
   title="Research · Jialong (Mark) Li"
   description="Papers and ongoing research by Jialong (Mark) Li."
 >
-  <main id="main-content" class="page shell">
+  <main id="main-content" class="page shell research-page">
     <PageHeading
       title="Research"
       description="Papers and research projects."
     />
 
     <section class="research-group" aria-labelledby="papers-title">
-      <h2 class="section-title group-heading" id="papers-title">Papers</h2>
-      <div class="entry-list">
+      <div class="group-heading">
+        <h2 id="papers-title">Papers</h2>
+      </div>
+      <div class="research-list">
         {papers.map((paper) => <ProjectCard project={paper} />)}
       </div>
     </section>
 
     <section class="research-group" aria-labelledby="projects-title">
-      <h2 class="section-title group-heading" id="projects-title">Research projects</h2>
-      <div class="entry-list">
+      <div class="group-heading">
+        <h2 id="projects-title">Research projects</h2>
+      </div>
+      <div class="research-list">
         {
           projects.map((project) => <ProjectCard project={project} />)
         }
@@ -40,11 +44,50 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
 </BaseLayout>
 
 <style>
+  .research-page {
+    --font-sans: "Inter Variable", "Inter", sans-serif;
+    --text-display: clamp(2.25rem, 1.8rem + 1.6vw, 2.75rem);
+    --text-title: clamp(1.1875rem, 1.1rem + 0.35vw, 1.3125rem);
+    --text-small: 0.9375rem;
+    --leading-tight: 1.1;
+    --leading-snug: 1.35;
+    --leading-body: 1.65;
+    --width-page: 68rem;
+    --width-reading: 40rem;
+    --page-gutter: clamp(1.25rem, 4vw, var(--space-7));
+    --space-section: clamp(var(--space-7), 6vw, var(--space-8));
+    --color-muted: var(--color-muted-strong);
+
+    width: min(calc(100% - 2 * var(--page-gutter)), var(--width-page));
+    padding: var(--space-section) 0 var(--space-8);
+    font-family: var(--font-sans);
+    line-height: var(--leading-body);
+  }
+
+  .research-page :global(.page-heading) {
+    padding-bottom: var(--space-7);
+  }
+
+  .research-page :global(.page-heading p) {
+    max-width: var(--width-reading);
+    margin-top: var(--space-3);
+  }
+
   .research-group + .research-group {
     margin-top: var(--space-section);
   }
 
   .group-heading {
     padding-bottom: var(--space-4);
+  }
+
+  .group-heading h2 {
+    font-size: var(--text-title);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+  }
+
+  .research-list {
+    border-bottom: var(--border);
   }
 </style>

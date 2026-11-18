@@ -59,8 +59,8 @@ const transfers = [
       </div>
     </div>
 
+    <p class="axis-title rules-axis-title">Complexity of Rules <span aria-hidden="true">↑</span></p>
     <div class="rules-axis">
-      <p class="axis-title">↑ Complexity of Rules</p>
       <p class="rules-label"><strong>High</strong><span>Complex &amp; Adaptive</span></p>
       <p class="rules-label"><strong>Low</strong><span>Simple &amp; Stable</span></p>
     </div>
@@ -88,9 +88,9 @@ const transfers = [
     This motivates me to learn from three established modeling paradigms, adapting and combining their strengths to address the distinct challenges of digital markets:
   </p>
 
-  <div class="method-transfers entry-list" aria-label="Ideas from established approaches applied to digital markets">
+  <div class="method-transfers" aria-label="Ideas from established approaches applied to digital markets">
     {transfers.map((transfer) => (
-      <article class="transfer entry-item">
+      <article class="transfer">
         <h3 class="entry-title">{transfer.source}</h3>
         <p>{transfer.description}</p>
       </article>
@@ -113,12 +113,13 @@ const transfers = [
 
   .matrix-layout {
     display: grid;
-    grid-template-columns: 9rem minmax(0, 1fr);
-    grid-template-areas: ". information" "rules panels";
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    grid-template-areas: "rules-title information" "rules panels";
     gap: var(--space-3) var(--space-4);
   }
 
   .information-axis,
+  .rules-axis-title,
   .rules-axis {
     color: var(--color-muted);
     font-size: var(--text-small);
@@ -156,17 +157,16 @@ const transfers = [
   .rules-axis {
     grid-area: rules;
     display: grid;
-    grid-template-columns: auto 1fr;
     grid-template-rows: repeat(2, 1fr);
-    gap: 0 var(--space-2);
     align-items: center;
     text-align: right;
   }
 
-  .rules-axis .axis-title {
-    grid-row: span 2;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
+  .rules-axis-title {
+    grid-area: rules-title;
+    align-self: end;
+    margin: 0;
+    text-align: right;
   }
 
   .matrix-grid {
@@ -197,6 +197,11 @@ const transfers = [
 
   .matrix-focus {
     background: var(--color-matrix-focus);
+  }
+
+  .regime .entry-title,
+  .transfer .entry-title {
+    font-size: var(--text-body);
   }
 
   .example {
@@ -246,6 +251,15 @@ const transfers = [
 
   .method-transfers {
     margin-top: var(--space-4);
+    border-block: var(--border);
+  }
+
+  .transfer {
+    padding-block: var(--space-4);
+  }
+
+  .transfer + .transfer {
+    border-top: var(--border);
   }
 
   .transfer p {
@@ -256,33 +270,50 @@ const transfers = [
     margin: var(--space-4) 0 0;
   }
 
+  @media (min-width: 56rem) {
+    .method-transfers {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding-block: var(--space-5);
+    }
+
+    .transfer {
+      padding: 0 var(--space-5);
+    }
+
+    .transfer:first-child {
+      padding-inline-start: 0;
+    }
+
+    .transfer:last-child {
+      padding-inline-end: 0;
+    }
+
+    .transfer + .transfer {
+      border-top: 0;
+      border-inline-start: var(--border);
+    }
+  }
+
   @media (max-width: 560px) {
     .matrix-layout {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: "information" "panels" "rules";
+      grid-template-areas: "information" "panels" "rules-title" "rules";
     }
 
     .rules-axis {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-rows: auto auto;
-      row-gap: var(--space-1);
-      text-align: center;
+      grid-template-rows: auto;
     }
 
-    .rules-axis .axis-title {
-      grid-row: auto;
-      grid-column: 1 / -1;
-      writing-mode: horizontal-tb;
-      transform: none;
+    .rules-axis-title,
+    .rules-axis {
+      text-align: center;
     }
 
     .regime {
       padding: var(--space-3);
       font-size: var(--text-small);
-    }
-
-    .regime .entry-title {
-      font-size: var(--text-body);
     }
   }
 </style>

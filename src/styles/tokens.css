@@ -3,11 +3,13 @@
   --color-surface: #fbfbfd;
   --color-text: #1c1c1e;
   --color-muted: #636366;
+  --color-muted-strong: #48484a;
   --color-border: #e5e5ea;
   --color-border-strong: #c7c7cc;
   --color-link: #2196f3;
   --color-link-hover: #1565c0;
   --color-matrix-focus: #ebf7ee;
+  --color-research-accepted: #8bc48b;
   --color-header: rgb(255 255 255 / 88%);
 
   --font-sans: "Inter", "Inter Variable", sans-serif;

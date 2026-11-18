@@ -7,53 +7,37 @@ interface Props {
 
 const { project } = Astro.props;
 const { status, period, title, summary, impact, abstract, links, authors, collaborators } = project.data;
-const selfName = "Jialong (Mark) Li";
 const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
+const selfName = "Jialong (Mark) Li";
 ---
 
-<article class="entry-item split-entry">
-  <div>
-    <h3 class="entry-title">{title}</h3>
-    {(status || period) && (
-      <p class="entry-status meta tabular-nums">
-        {status && <span class="status">{status}</span>}
-        {status && period && <span aria-hidden="true">·</span>}
-        {period}
-      </p>
-    )}
+<article class="entry" data-tone={project.data.tone} data-kind={project.data.kind}>
+  <div class="entry-main">
+    {
+      (status || period) && (
+        <p class="entry-meta tabular-nums">
+          {status && <span class="status">{status}</span>}
+          {period && <span class="period">{period}</span>}
+        </p>
+      )
+    }
+    <h3>{title}</h3>
+    {impact && <p class="summary"><strong>Impact:</strong> {impact}</p>}
+    <p class="summary"><strong>My role:</strong> {summary}</p>
 
-    {authors.length > 0 && (
-      <p class="credits meta">
-        <strong>Authors</strong>
-        {authors.map((author, index) => (
-          <>
-            {author === selfName ? <strong>{author}</strong> : author}
-            {index < authors.length - 1 && ", "}
-          </>
-        ))}
-      </p>
-    )}
-    {collaborators.length > 0 && (
-      <p class="credits meta">
-        <strong>{collaborators.length > 1 ? "Advisors" : "Advisor"}</strong>
-        {collaborators.join(", ")}
-      </p>
-    )}
-  </div>
-
-  <div>
-    {impact && <p class="description"><strong>Impact:</strong> {impact}</p>}
-    <p class="description"><strong>My role:</strong> {summary}</p>
-
-    {visibleLinks.length > 0 && (
-      <div class="entry-links">
-        {visibleLinks.map((link) => (
-          <a class="action-link" href={link.url} target="_blank" rel="noopener noreferrer">
-            {link.label} <span class="external-arrow" aria-hidden="true">↑</span>
-          </a>
-        ))}
-      </div>
-    )}
+    {
+      visibleLinks.length > 0 && (
+        <ul class="links">
+          {visibleLinks.map((link) => (
+            <li>
+              <a class="action-link" href={link.url} target="_blank" rel="noreferrer">
+                {link.label} <span class="external-arrow" aria-hidden="true">↑</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
 
     {abstract && (
       <details class="abstract">
@@ -62,57 +46,134 @@ const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
       </details>
     )}
   </div>
+
+  {
+    (authors.length > 0 || collaborators.length > 0) && (
+      <div class="entry-aside">
+        {authors.length > 0 && (
+          <p>
+            <span class="aside-label">Authors</span>
+            {authors.map((author, index) => (
+              <>
+                {author === selfName ? <strong class="self">{author}</strong> : author}
+                {index < authors.length - 1 && ", "}
+              </>
+            ))}
+          </p>
+        )}
+        {collaborators.length > 0 && (
+          <p>
+            <span class="aside-label">{collaborators.length > 1 ? "Advisors" : "Advisor"}</span>
+            {collaborators.join(", ")}
+          </p>
+        )}
+      </div>
+    )
+  }
 </article>
 
 <style>
-  .entry-status {
+  .entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 16rem;
+    gap: var(--space-7);
+    padding: var(--space-6) 0;
+    border-top: var(--border);
+  }
+
+  .entry-meta {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-2);
-    margin-top: var(--space-2);
+    gap: var(--space-1) var(--space-3);
+    margin: 0 0 var(--space-2);
+    font-size: var(--text-small);
+    line-height: var(--leading-snug);
   }
 
   .status {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
+    color: var(--color-text);
+    font-weight: var(--weight-semibold);
   }
 
   .status::before {
-    width: 6px;
-    height: 6px;
+    width: 0.5rem;
+    height: 0.5rem;
     flex: 0 0 auto;
-    border-radius: 50%;
-    background: var(--color-link);
+    border-radius: 999px;
+    background: var(--color-muted);
     content: "";
   }
 
-  .credits {
-    margin-top: var(--space-2);
+  .entry[data-tone="accepted"] .status::before {
+    background: var(--color-research-accepted);
   }
 
-  .credits > strong:first-child {
-    margin-inline-end: var(--space-1);
+  .entry[data-tone="review"] .status::before,
+  .entry[data-kind="project"] .status::before {
+    background: var(--color-link);
   }
 
-  .description {
+  .period {
+    color: var(--color-muted);
+  }
+
+  .period::before {
+    margin-right: var(--space-3);
+    content: "·";
+  }
+
+  h3 {
+    max-width: var(--width-reading);
+    font-size: var(--text-title);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-snug);
+  }
+
+  .summary {
+    max-width: var(--width-reading);
+    margin: var(--space-3) 0 0;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry-aside {
+    display: grid;
+    align-content: start;
+    gap: var(--space-4);
+    margin: 0;
+    font-size: var(--text-small);
+  }
+
+  .entry-aside p {
     margin: 0;
   }
 
-  .description + .description {
-    margin-top: var(--space-3);
+  .aside-label {
+    display: block;
+    margin-bottom: var(--space-1);
+    color: var(--color-muted);
+    font-weight: var(--weight-semibold);
+    line-height: var(--leading-snug);
   }
 
-  .entry-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-4);
-    margin-top: var(--space-2);
+  .self {
+    font-weight: var(--weight-semibold);
+    white-space: nowrap;
   }
 
   .abstract {
-    margin-top: var(--space-2);
+    margin-top: var(--space-4);
     font-size: var(--text-small);
   }
 
@@ -123,7 +184,6 @@ const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
     border-radius: var(--radius);
     background: var(--color-surface);
     color: var(--color-muted);
-    font-size: var(--text-small);
     font-weight: var(--weight-semibold);
     cursor: pointer;
   }
@@ -140,5 +200,24 @@ const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
     border-radius: var(--radius-card);
     background: var(--color-surface);
     white-space: pre-line;
+  }
+
+  @media (max-width: 860px) {
+    .entry {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+
+    .entry-aside {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .entry-aside {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-3);
+    }
   }
 </style>
