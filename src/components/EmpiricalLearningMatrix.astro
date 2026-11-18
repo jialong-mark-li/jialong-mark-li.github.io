@@ -1,37 +1,30 @@
 ---
 const regimes = [
   {
-    area: "foundation",
     title: "Foundation Models",
     example: "e.g., LLMs",
-    information: "High",
     rules: "Complex, contextual language patterns",
     signals: "Rich text and training signals",
     solution: "Pretraining & scaling",
   },
   {
-    area: "markets",
+    focus: true,
     title: "Human Digital Markets",
     example: "My research focus",
-    information: "Low",
     rules: "Adaptive decisions & strategic responses",
     signals: "Policy-shaped data; missing counterfactuals",
     solution: "?",
   },
   {
-    area: "games",
     title: "Closed Games",
     example: "e.g., AlphaGo Zero",
-    information: "High",
     rules: "Fixed rules and explicit rewards",
     signals: "Repeatable self-play simulations",
     solution: "Simulation, search & RL",
   },
   {
-    area: "physics",
     title: "Classical Physics",
     example: "e.g., Planetary Orbits",
-    information: "Low",
     rules: "Stable governing laws",
     signals: "Limited real-world observations",
     solution: "Theory-driven modeling",
@@ -54,51 +47,38 @@ const transfers = [
 ];
 ---
 
-<section class="learning-matrix shell" aria-labelledby="matrix-title">
-  <header class="matrix-heading">
-    <h2 id="matrix-title">The Limits of Scaling</h2>
-    <p>An Empirical Learning Matrix</p>
-  </header>
+<section class="learning-matrix" aria-labelledby="matrix-title">
+  <h2 id="matrix-title">The Limits of Scaling — An Empirical Learning Matrix</h2>
 
-  <div class="matrix-grid" aria-label="Four regimes of empirical modeling by complexity of rules and effective information availability">
-    <div class="information-axis">← Effective Information Availability</div>
-    <div class="information-label high-information">
-      <strong>High</strong>
-      <span>Rich Signals &amp; Feedback</span>
-    </div>
-    <div class="information-label low-information">
-      <strong>Low</strong>
-      <span>Limited Signals &amp; Feedback</span>
+  <div class="matrix-layout">
+    <div class="information-axis">
+      <p class="axis-title">← Effective Information Availability</p>
+      <div class="information-labels">
+        <p><strong>High</strong><span>Rich Signals &amp; Feedback</span></p>
+        <p><strong>Low</strong><span>Limited Signals &amp; Feedback</span></p>
+      </div>
     </div>
 
     <div class="rules-axis">
-      <span class="rules-arrow" aria-hidden="true">↑</span>
-      <span class="rules-axis-name">Complexity of Rules</span>
-    </div>
-    <div class="rules-label high-rules">
-      <strong>High</strong>
-      <span>Complex &amp; Adaptive</span>
-    </div>
-    <div class="rules-label low-rules">
-      <strong>Low</strong>
-      <span>Simple &amp; Stable</span>
+      <p class="axis-title">↑ Complexity of Rules</p>
+      <p class="rules-label"><strong>High</strong><span>Complex &amp; Adaptive</span></p>
+      <p class="rules-label"><strong>Low</strong><span>Simple &amp; Stable</span></p>
     </div>
 
-    {regimes.map((regime) => (
-      <article class:list={["regime", regime.area]}>
-        <header>
-          <p class="mobile-information">{regime.information} Information</p>
+    <div class="matrix-grid" role="group" aria-label="Four regimes of empirical modeling by complexity of rules and effective information availability">
+      {regimes.map((regime) => (
+        <article class:list={["regime", regime.focus && "matrix-focus"]}>
           <h3>{regime.title}</h3>
           <p class="example">{regime.example}</p>
-        </header>
-        <h4>Condition</h4>
-        <ul>
-          <li>{regime.rules}</li>
-          <li>{regime.signals}</li>
-        </ul>
-        <p class="solution"><strong>Solution:</strong> {regime.solution}</p>
-      </article>
-    ))}
+          <h4>Condition</h4>
+          <ul>
+            <li>{regime.rules}</li>
+            <li>{regime.signals}</li>
+          </ul>
+          <p class="solution"><strong>Solution:</strong> {regime.solution}</p>
+        </article>
+      ))}
+    </div>
   </div>
 
   <p class="matrix-explanation">
@@ -108,10 +88,10 @@ const transfers = [
     This motivates me to learn from three established modeling paradigms, adapting and combining their strengths to address the distinct challenges of digital markets:
   </p>
 
-  <div class="method-transfers" aria-label="Ideas from established approaches applied to digital markets">
+  <div class="method-transfers entry-list" aria-label="Ideas from established approaches applied to digital markets">
     {transfers.map((transfer) => (
-      <article class="transfer">
-        <h3>{transfer.source}</h3>
+      <article class="transfer entry-item">
+        <h3 class="entry-title">{transfer.source}</h3>
         <p>{transfer.description}</p>
       </article>
     ))}
@@ -124,311 +104,182 @@ const transfers = [
 
 <style>
   .learning-matrix {
-    padding-bottom: var(--space-section);
+    margin-top: var(--space-section);
   }
 
-  .matrix-heading {
-    padding-top: var(--space-5);
-    border-top: 2px solid var(--palette-box-border);
-    margin-bottom: var(--space-5);
-  }
-
-  .matrix-heading h2 {
+  h2 {
+    margin-bottom: var(--space-4);
     font-size: var(--text-title);
     letter-spacing: var(--tracking-tight);
     line-height: var(--leading-snug);
   }
 
-  .matrix-heading p {
-    margin: var(--space-1) 0 0;
-    color: var(--color-muted);
-    font-size: var(--text-small);
-    font-style: italic;
-    line-height: var(--leading-snug);
+  .matrix-layout {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    grid-template-areas: ". information" "rules panels";
+    gap: var(--space-2) var(--space-3);
   }
 
-  .matrix-grid {
-    display: grid;
-    grid-template-columns: var(--space-6) minmax(0, 0.32fr) repeat(2, minmax(0, 1fr));
-    grid-template-areas:
-      ". . axis axis"
-      ". . infohigh infolow"
-      "rules high foundation markets"
-      "rules low games physics";
-    column-gap: 0;
-    row-gap: 0;
+  .information-axis,
+  .rules-axis {
+    color: var(--color-muted);
+    font-size: var(--text-label);
+    line-height: var(--leading-snug);
   }
 
   .information-axis {
-    grid-area: axis;
+    grid-area: information;
     text-align: center;
-    font-size: var(--text-small);
-    font-weight: var(--weight-semibold);
-    line-height: var(--leading-snug);
   }
 
-  .information-label {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-1);
-    align-items: center;
-    text-align: center;
-    font-size: var(--text-small);
-    line-height: var(--leading-snug);
-    padding-bottom: var(--space-3);
+  .information-labels {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: var(--space-1);
   }
 
-  .information-label strong,
+  .axis-title,
+  .information-labels strong,
   .rules-label strong {
+    color: var(--color-text);
     font-weight: var(--weight-semibold);
   }
 
-  .information-label span,
-  .rules-label span {
-    color: var(--color-muted);
+  .information-labels strong,
+  .rules-label strong {
+    display: block;
   }
 
-  .high-information { grid-area: infohigh; }
-  .low-information { grid-area: infolow; }
+  .information-axis p,
+  .rules-axis p {
+    margin: 0;
+  }
 
   .rules-axis {
     grid-area: rules;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 0 var(--space-2);
     align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    align-self: center;
-    justify-self: center;
-    white-space: nowrap;
-    font-weight: var(--weight-semibold);
-    font-size: var(--text-small);
-    line-height: var(--leading-snug);
+    text-align: right;
   }
 
-  .rules-axis-name {
+  .rules-axis .axis-title {
+    grid-row: span 2;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
   }
 
-  .rules-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: center;
-    gap: var(--space-1);
-    text-align: right;
-    font-size: var(--text-small);
-    line-height: var(--leading-snug);
-    padding-right: var(--space-3);
+  .matrix-grid {
+    grid-area: panels;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-card);
   }
-
-  .high-rules { grid-area: high; }
-  .low-rules { grid-area: low; }
-
-  .foundation { grid-area: foundation; }
-  .markets { grid-area: markets; }
-  .games { grid-area: games; }
-  .physics { grid-area: physics; }
 
   .regime {
     display: flex;
     flex-direction: column;
     min-width: 0;
-    padding: var(--space-5);
-    border: 1px solid var(--palette-box-border);
-    color: var(--color-text);
+    padding: var(--space-4);
+    font-size: var(--text-caption);
+    line-height: var(--leading-snug);
   }
 
-  .regime.foundation,
-  .regime.markets {
-    border-bottom: 0;
+  .regime:nth-child(odd) {
+    border-inline-end: var(--border);
   }
 
-  .regime.foundation,
-  .regime.games {
-    border-right: 0;
+  .regime:nth-child(-n + 2) {
+    border-block-end: var(--border);
   }
 
-  .regime.markets {
-    background: var(--palette-privacy-control);
-    background: color-mix(in srgb, var(--palette-privacy-control) 45%, var(--color-background));
+  .matrix-focus {
+    background: var(--color-matrix-focus);
   }
 
   .regime h3 {
-    font-size: var(--text-title);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-snug);
-  }
-
-  .regime .example {
-    margin: var(--space-1) 0 0;
-    color: var(--color-muted);
     font-size: var(--text-small);
-    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
   }
 
-  .mobile-information {
-    display: none;
+  .example {
+    margin: var(--space-1) 0 var(--space-3);
+    color: var(--color-muted);
   }
 
   .regime h4 {
-    margin-top: var(--space-4);
-    font-size: var(--text-small);
-    line-height: var(--leading-snug);
+    font-size: var(--text-label);
   }
 
   .regime ul {
-    margin: var(--space-2) 0 var(--space-4);
-    padding-left: var(--space-5);
-    font-size: var(--text-small);
-    line-height: var(--leading-snug);
+    margin: var(--space-1) 0 var(--space-3);
+    padding-inline-start: var(--space-4);
   }
 
   .regime li + li {
-    margin-top: var(--space-2);
+    margin-top: var(--space-1);
   }
 
-  .regime .solution {
+  .solution {
     margin: auto 0 0;
-    border-top: 1px solid var(--palette-reference);
-    padding-top: var(--space-3);
-    font-size: var(--text-small);
-    line-height: var(--leading-snug);
+    padding-top: var(--space-2);
+    border-top: var(--border);
+    color: var(--color-muted);
   }
 
-  .regime .solution strong {
-    font-weight: var(--weight-semibold);
+  .solution strong {
+    color: var(--color-text);
   }
 
   .matrix-explanation {
-    margin: var(--space-6) 0 0;
-    font-size: var(--text-body);
-    line-height: var(--leading-body);
+    margin: var(--space-5) 0 0;
   }
 
   .method-introduction {
     margin: var(--space-3) 0 0;
-    font-size: var(--text-body);
-    line-height: var(--leading-body);
   }
 
   .method-transfers {
-    margin-top: var(--space-5);
-    border-top: 2px solid var(--palette-box-border);
-  }
-
-  .research-goal {
-    margin: var(--space-5) 0 0;
-    font-size: var(--text-body);
-    line-height: var(--leading-body);
-  }
-
-  .transfer {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
-    gap: var(--space-6);
-    align-items: baseline;
-    padding: var(--space-4) 0;
-    border-bottom: var(--border);
-  }
-
-  .transfer h3 {
-    font-size: var(--text-body);
-    line-height: var(--leading-snug);
-    letter-spacing: var(--tracking-normal);
+    margin-top: var(--space-4);
   }
 
   .transfer p {
-    margin: 0;
+    margin: var(--space-1) 0 0;
     font-size: var(--text-small);
-    line-height: var(--leading-body);
   }
 
-  @media (max-width: 860px) {
-    .matrix-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-areas:
-        "axis axis"
-        "infohigh infolow"
-        "rules rules"
-        "high high"
-        "foundation markets"
-        "low low"
-        "games physics";
-      column-gap: 0;
-      row-gap: var(--space-2);
+  .research-goal {
+    margin: var(--space-4) 0 0;
+  }
+
+  @media (max-width: 560px) {
+    .matrix-layout {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "information" "panels" "rules";
     }
 
     .rules-axis {
-      flex-direction: row-reverse;
-      justify-self: start;
-      margin-top: var(--space-3);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: auto auto;
+      row-gap: var(--space-1);
+      text-align: center;
     }
 
-    .rules-axis-name {
+    .rules-axis .axis-title {
+      grid-row: auto;
+      grid-column: 1 / -1;
       writing-mode: horizontal-tb;
       transform: none;
     }
 
-    .rules-label {
-      flex-direction: row;
-      align-items: baseline;
-      justify-content: flex-start;
-      text-align: left;
-      gap: var(--space-2);
-    }
-
     .regime {
-      padding: var(--space-4);
-    }
-
-    .regime.foundation,
-    .regime.games {
-      border-right: 1px solid var(--palette-box-border);
-    }
-
-    .regime.foundation,
-    .regime.markets {
-      border-bottom: 1px solid var(--palette-box-border);
-    }
-  }
-
-  @media (max-width: 620px) {
-    .matrix-grid {
-      grid-template-columns: minmax(0, 1fr);
-      grid-template-areas:
-        "rules"
-        "high"
-        "axis"
-        "foundation"
-        "markets"
-        "low"
-        "games"
-        "physics";
-      row-gap: var(--space-2);
-    }
-
-    .information-label {
-      display: none;
-    }
-
-    .information-axis {
-      margin-top: var(--space-2);
-      text-align: left;
-    }
-
-    .mobile-information {
-      display: block;
-      margin: 0 0 var(--space-2);
-      font-size: var(--text-small);
-      color: var(--color-muted);
-      line-height: var(--leading-snug);
-    }
-
-    .transfer {
-      grid-template-columns: 1fr;
-      gap: var(--space-2);
+      padding: var(--space-3);
     }
   }
 </style>

@@ -9,6 +9,7 @@ const projects = defineCollection({
     order: z.number(),
     summary: z.string(),
     impact: z.string().optional(),
+    abstract: z.string().trim().min(1).optional(),
     kind: z.enum(["paper", "project"]),
     tone: z.enum(["accepted", "review", "ongoing", "archive"]),
     status: z.string().optional(),

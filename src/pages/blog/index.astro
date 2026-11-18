@@ -25,84 +25,50 @@ const formatDate = (date: Date) =>
 
     {
       posts.length > 0 ? (
-        <ol class="post-list">
+        <ol class="entry-list post-list">
           {posts.map((post) => (
-            <li>
+            <li class="entry-item">
               <a href={`/blog/${post.data.slug}/`}>
-                <div>
-                  <h2>{post.data.title}</h2>
-                  <p>{post.data.summary}</p>
-                </div>
-                <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                <h2 class="entry-title">{post.data.title}</h2>
+                <p class="meta">
+                  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+                </p>
+                <p class="post-summary">{post.data.summary}</p>
               </a>
             </li>
           ))}
         </ol>
       ) : (
-        <p class="empty-state">The first notes are in progress.</p>
+        <p class="entry-item empty-state">The first notes are in progress.</p>
       )
     }
   </main>
 </BaseLayout>
 
 <style>
-  .post-list {
-    margin: 0;
-    padding: 0;
-    border-bottom: var(--border);
-    list-style: none;
-  }
-
-  .post-list li {
-    border-top: var(--border);
-  }
-
   .post-list a {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: var(--space-6);
-    padding: var(--space-6) 0;
+    display: block;
     text-decoration: none;
   }
 
-  .post-list h2 {
-    font-size: var(--text-title);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-snug);
+  .post-list .meta,
+  .post-summary {
+    margin: var(--space-1) 0 0;
   }
 
-  .post-list p {
-    max-width: var(--width-reading);
-    margin: var(--space-3) 0 0;
-  }
-
-  .post-list time {
-    color: var(--color-muted);
+  .post-summary {
     font-size: var(--text-small);
-    line-height: var(--leading-snug);
-    white-space: nowrap;
   }
 
   .post-list a:hover h2 {
     color: var(--color-link);
+    text-decoration: underline;
+    text-underline-offset: var(--underline-offset);
   }
 
   .empty-state {
     margin: 0;
-    padding: var(--space-6) 0;
     border-top: var(--border);
-    border-bottom: var(--border);
     color: var(--color-muted);
-  }
-
-  @media (max-width: 680px) {
-    .post-list a {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--space-2);
-    }
-
-    .post-list time {
-      grid-row: 1;
-    }
   }
 </style>
