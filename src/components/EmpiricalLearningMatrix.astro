@@ -104,7 +104,7 @@ const transfers = [
 
 <style>
   .learning-matrix {
-    margin-top: var(--space-section);
+    margin-top: var(--space-6);
   }
 
   h2 {
@@ -234,13 +234,6 @@ const transfers = [
     color: var(--color-text);
   }
 
-  .matrix-explanation,
-  .method-introduction,
-  .transfer p,
-  .research-goal {
-    max-width: var(--width-reading);
-  }
-
   .matrix-explanation {
     margin: var(--space-6) 0 0;
   }
@@ -268,31 +261,6 @@ const transfers = [
 
   .research-goal {
     margin: var(--space-4) 0 0;
-  }
-
-  @media (min-width: 56rem) {
-    .method-transfers {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      padding-block: var(--space-5);
-    }
-
-    .transfer {
-      padding: 0 var(--space-5);
-    }
-
-    .transfer:first-child {
-      padding-inline-start: 0;
-    }
-
-    .transfer:last-child {
-      padding-inline-end: 0;
-    }
-
-    .transfer + .transfer {
-      border-top: 0;
-      border-inline-start: var(--border);
-    }
   }
 
   @media (max-width: 560px) {
