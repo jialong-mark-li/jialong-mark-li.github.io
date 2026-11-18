@@ -49,11 +49,13 @@ const published = new Intl.DateTimeFormat("en", {
 </BaseLayout>
 
 <style>
+  header,
+  .article-body {
+    max-width: var(--width-reading);
+  }
+
   h1 {
     margin-top: var(--space-6);
-    font-size: var(--text-display);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-tight);
   }
 
   .summary {
@@ -90,7 +92,7 @@ const published = new Intl.DateTimeFormat("en", {
 
   .article-body :global(h3) {
     margin: var(--space-6) 0 var(--space-2);
-    font-size: var(--text-body);
+    font-size: var(--text-title);
     line-height: var(--leading-snug);
   }
 
@@ -131,7 +133,6 @@ const published = new Intl.DateTimeFormat("en", {
     padding: 0.1em 0.3em;
     border: var(--border);
     border-radius: var(--radius);
-    font-size: 0.9em;
   }
 
   .article-body :global(.katex-display) {

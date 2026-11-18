@@ -22,18 +22,14 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
     />
 
     <section class="research-group" aria-labelledby="papers-title">
-      <div class="group-heading">
-        <h2 id="papers-title">Papers</h2>
-      </div>
+      <h2 class="section-title group-heading" id="papers-title">Papers</h2>
       <div class="entry-list">
         {papers.map((paper) => <ProjectCard project={paper} />)}
       </div>
     </section>
 
     <section class="research-group" aria-labelledby="projects-title">
-      <div class="group-heading">
-        <h2 id="projects-title">Research projects</h2>
-      </div>
+      <h2 class="section-title group-heading" id="projects-title">Research projects</h2>
       <div class="entry-list">
         {
           projects.map((project) => <ProjectCard project={project} />)
@@ -45,16 +41,10 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
 
 <style>
   .research-group + .research-group {
-    margin-top: var(--space-6);
+    margin-top: var(--space-section);
   }
 
   .group-heading {
     padding-bottom: var(--space-4);
-  }
-
-  .group-heading h2 {
-    font-size: var(--text-title);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-snug);
   }
 </style>

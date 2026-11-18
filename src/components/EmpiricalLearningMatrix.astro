@@ -48,7 +48,7 @@ const transfers = [
 ---
 
 <section class="learning-matrix" aria-labelledby="matrix-title">
-  <h2 id="matrix-title">The Limits of Scaling — An Empirical Learning Matrix</h2>
+  <h2 class="section-title" id="matrix-title">The Limits of Scaling — An Empirical Learning Matrix</h2>
 
   <div class="matrix-layout">
     <div class="information-axis">
@@ -68,7 +68,7 @@ const transfers = [
     <div class="matrix-grid" role="group" aria-label="Four regimes of empirical modeling by complexity of rules and effective information availability">
       {regimes.map((regime) => (
         <article class:list={["regime", regime.focus && "matrix-focus"]}>
-          <h3>{regime.title}</h3>
+          <h3 class="entry-title">{regime.title}</h3>
           <p class="example">{regime.example}</p>
           <h4>Condition</h4>
           <ul>
@@ -108,23 +108,20 @@ const transfers = [
   }
 
   h2 {
-    margin-bottom: var(--space-4);
-    font-size: var(--text-title);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-snug);
+    margin-bottom: var(--space-5);
   }
 
   .matrix-layout {
     display: grid;
-    grid-template-columns: 7rem minmax(0, 1fr);
+    grid-template-columns: 9rem minmax(0, 1fr);
     grid-template-areas: ". information" "rules panels";
-    gap: var(--space-2) var(--space-3);
+    gap: var(--space-3) var(--space-4);
   }
 
   .information-axis,
   .rules-axis {
     color: var(--color-muted);
-    font-size: var(--text-label);
+    font-size: var(--text-small);
     line-height: var(--leading-snug);
   }
 
@@ -186,8 +183,7 @@ const transfers = [
     display: flex;
     flex-direction: column;
     min-width: 0;
-    padding: var(--space-4);
-    font-size: var(--text-caption);
+    padding: var(--space-5);
     line-height: var(--leading-snug);
   }
 
@@ -203,18 +199,14 @@ const transfers = [
     background: var(--color-matrix-focus);
   }
 
-  .regime h3 {
-    font-size: var(--text-small);
-    letter-spacing: var(--tracking-tight);
-  }
-
   .example {
     margin: var(--space-1) 0 var(--space-3);
     color: var(--color-muted);
+    font-size: var(--text-small);
   }
 
   .regime h4 {
-    font-size: var(--text-label);
+    font-size: var(--text-small);
   }
 
   .regime ul {
@@ -237,8 +229,15 @@ const transfers = [
     color: var(--color-text);
   }
 
+  .matrix-explanation,
+  .method-introduction,
+  .transfer p,
+  .research-goal {
+    max-width: var(--width-reading);
+  }
+
   .matrix-explanation {
-    margin: var(--space-5) 0 0;
+    margin: var(--space-6) 0 0;
   }
 
   .method-introduction {
@@ -250,8 +249,7 @@ const transfers = [
   }
 
   .transfer p {
-    margin: var(--space-1) 0 0;
-    font-size: var(--text-small);
+    margin: var(--space-2) 0 0;
   }
 
   .research-goal {
@@ -280,6 +278,11 @@ const transfers = [
 
     .regime {
       padding: var(--space-3);
+      font-size: var(--text-small);
+    }
+
+    .regime .entry-title {
+      font-size: var(--text-body);
     }
   }
 </style>

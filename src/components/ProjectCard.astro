@@ -11,53 +11,57 @@ const selfName = "Jialong (Mark) Li";
 const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
 ---
 
-<article class="entry-item">
-  <h3 class="entry-title">{title}</h3>
-  {(status || period) && (
-    <p class="entry-status meta tabular-nums">
-      {status && <span class="status">{status}</span>}
-      {status && period && <span aria-hidden="true">·</span>}
-      {period}
-    </p>
-  )}
+<article class="entry-item split-entry">
+  <div>
+    <h3 class="entry-title">{title}</h3>
+    {(status || period) && (
+      <p class="entry-status meta tabular-nums">
+        {status && <span class="status">{status}</span>}
+        {status && period && <span aria-hidden="true">·</span>}
+        {period}
+      </p>
+    )}
 
-  {authors.length > 0 && (
-    <p class="credits meta">
-      <strong>Authors</strong>
-      {authors.map((author, index) => (
-        <>
-          {author === selfName ? <strong>{author}</strong> : author}
-          {index < authors.length - 1 && ", "}
-        </>
-      ))}
-    </p>
-  )}
-  {collaborators.length > 0 && (
-    <p class="credits meta">
-      <strong>{collaborators.length > 1 ? "Advisors" : "Advisor"}</strong>
-      {collaborators.join(", ")}
-    </p>
-  )}
+    {authors.length > 0 && (
+      <p class="credits meta">
+        <strong>Authors</strong>
+        {authors.map((author, index) => (
+          <>
+            {author === selfName ? <strong>{author}</strong> : author}
+            {index < authors.length - 1 && ", "}
+          </>
+        ))}
+      </p>
+    )}
+    {collaborators.length > 0 && (
+      <p class="credits meta">
+        <strong>{collaborators.length > 1 ? "Advisors" : "Advisor"}</strong>
+        {collaborators.join(", ")}
+      </p>
+    )}
+  </div>
 
-  {impact && <p class="description"><strong>Impact:</strong> {impact}</p>}
-  <p class="description"><strong>My role:</strong> {summary}</p>
+  <div>
+    {impact && <p class="description"><strong>Impact:</strong> {impact}</p>}
+    <p class="description"><strong>My role:</strong> {summary}</p>
 
-  {visibleLinks.length > 0 && (
-    <div class="entry-links">
-      {visibleLinks.map((link) => (
-        <a class="action-link" href={link.url} target="_blank" rel="noopener noreferrer">
-          {link.label} <span class="external-arrow" aria-hidden="true">↑</span>
-        </a>
-      ))}
-    </div>
-  )}
+    {visibleLinks.length > 0 && (
+      <div class="entry-links">
+        {visibleLinks.map((link) => (
+          <a class="action-link" href={link.url} target="_blank" rel="noopener noreferrer">
+            {link.label} <span class="external-arrow" aria-hidden="true">↑</span>
+          </a>
+        ))}
+      </div>
+    )}
 
-  {abstract && (
-    <details class="abstract">
-      <summary>Abstract</summary>
-      <p>{abstract}</p>
-    </details>
-  )}
+    {abstract && (
+      <details class="abstract">
+        <summary>Abstract</summary>
+        <p>{abstract}</p>
+      </details>
+    )}
+  </div>
 </article>
 
 <style>
@@ -66,7 +70,7 @@ const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-2);
-    margin-top: var(--space-1);
+    margin-top: var(--space-2);
   }
 
   .status {
@@ -93,8 +97,11 @@ const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
   }
 
   .description {
-    margin: var(--space-2) 0 0;
-    font-size: var(--text-small);
+    margin: 0;
+  }
+
+  .description + .description {
+    margin-top: var(--space-3);
   }
 
   .entry-links {
@@ -116,8 +123,8 @@ const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
     border-radius: var(--radius);
     background: var(--color-surface);
     color: var(--color-muted);
-    font-size: var(--text-caption);
-    font-weight: var(--weight-medium);
+    font-size: var(--text-small);
+    font-weight: var(--weight-semibold);
     cursor: pointer;
   }
 

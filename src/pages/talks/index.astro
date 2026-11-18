@@ -8,6 +8,7 @@ const talks = (await getCollection("slides", ({ data }) => !data.draft)).sort(
   (a, b) => a.data.order - b.data.order,
 );
 const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
+const coverSizes = "(min-width: 76rem) 33.5rem, (min-width: 56rem) calc(46vw - 1.5rem), (min-width: 35rem) 32rem, 92vw";
 ---
 
 <BaseLayout
@@ -32,7 +33,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
           const isFirstCover = talk.id === firstCoverId;
 
           return (
-            <li class="talk entry-item">
+            <li class:list={["entry-item", { "split-entry": talk.data.cover }]}>
               <div class="talk-copy">
                 {talk.data.event && <p class="meta tabular-nums">{talk.data.event}</p>}
                 <h2 class="entry-title">
@@ -99,7 +100,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
                       src={talk.data.cover}
                       alt={`Cover of ${talk.data.title}`}
                       widths={[480, 820, 1200]}
-                      sizes="(max-width: 450px) calc(100vw - 8vw), 26rem"
+                      sizes={coverSizes}
                       format="webp"
                       loading={isFirstCover ? "eager" : "lazy"}
                       fetchpriority={isFirstCover ? "high" : undefined}
@@ -117,7 +118,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
                       src={talk.data.cover}
                       alt={`Cover of ${talk.data.title}`}
                       widths={[480, 820, 1200]}
-                      sizes="(max-width: 450px) calc(100vw - 8vw), 26rem"
+                      sizes={coverSizes}
                       format="webp"
                       loading={isFirstCover ? "eager" : "lazy"}
                       fetchpriority={isFirstCover ? "high" : undefined}
@@ -134,7 +135,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
 
 <style>
   .talk-copy > .meta {
-    margin-bottom: var(--space-1);
+    margin-bottom: var(--space-2);
   }
 
   h2 a {
@@ -147,22 +148,28 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
   }
 
   .description {
-    margin: var(--space-2) 0 0;
-    font-size: var(--text-small);
+    margin: var(--space-3) 0 0;
+    max-width: var(--width-reading);
   }
 
   .talk-action {
     display: inline-block;
-    margin-top: var(--space-2);
+    margin-top: var(--space-4);
   }
 
   .talk-cover {
     display: block;
-    max-width: 26rem;
-    margin-top: var(--space-3);
+    width: 100%;
+    max-width: 32rem;
     overflow: hidden;
     border: var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--radius-card);
+  }
+
+  @media (min-width: 56rem) {
+    .talk-cover {
+      max-width: none;
+    }
   }
 
   a.talk-cover:hover {
