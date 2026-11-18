@@ -25,7 +25,7 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
       <div class="group-heading">
         <h2 id="papers-title">Papers</h2>
       </div>
-      <div class="research-list">
+      <div class="entry-list">
         {papers.map((paper) => <ProjectCard project={paper} />)}
       </div>
     </section>
@@ -34,7 +34,7 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
       <div class="group-heading">
         <h2 id="projects-title">Research projects</h2>
       </div>
-      <div class="research-list">
+      <div class="entry-list">
         {
           projects.map((project) => <ProjectCard project={project} />)
         }
@@ -45,7 +45,7 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
 
 <style>
   .research-group + .research-group {
-    margin-top: var(--space-section);
+    margin-top: var(--space-6);
   }
 
   .group-heading {
@@ -56,9 +56,5 @@ const projects = entries.filter((entry) => entry.data.kind === "project");
     font-size: var(--text-title);
     letter-spacing: var(--tracking-tight);
     line-height: var(--leading-snug);
-  }
-
-  .research-list {
-    border-bottom: var(--border);
   }
 </style>

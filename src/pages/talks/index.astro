@@ -20,7 +20,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
       description="Research talks and technical reading-group notes."
     />
 
-    <ol class="talk-list">
+    <ol class="entry-list">
       {
         talks.map((talk) => {
           const href = talk.data.pdf ?? talk.data.url;
@@ -32,10 +32,10 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
           const isFirstCover = talk.id === firstCoverId;
 
           return (
-            <li class:list={["talk", { "without-cover": !talk.data.cover }]}>
+            <li class="talk entry-item">
               <div class="talk-copy">
-                {talk.data.event && <p class="meta">{talk.data.event}</p>}
-                <h2>
+                {talk.data.event && <p class="meta tabular-nums">{talk.data.event}</p>}
+                <h2 class="entry-title">
                   {talk.data.hideLink ? (
                     talk.data.title
                   ) : (
@@ -47,7 +47,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
                 <p class="description">{talk.data.description}</p>
                 {!talk.data.hideLink && (
                   <a class="action-link talk-action" href={href} target="_blank" rel="noreferrer">
-                    {label} <span aria-hidden="true">↗</span>
+                    {label} <span class="external-arrow" aria-hidden="true">↑</span>
                   </a>
                 )}
 
@@ -67,7 +67,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
                           {talk.data.selectedTalks.map((link) => (
                             <li>
                               <a class="text-link" href={link.url} target="_blank" rel="noreferrer">
-                                {link.label} <span aria-hidden="true">↗</span>
+                                {link.label} <span class="external-arrow" aria-hidden="true">↑</span>
                               </a>
                             </li>
                           ))}
@@ -81,7 +81,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
                           {talk.data.resources.map((link) => (
                             <li>
                               <a class="text-link" href={link.url} target="_blank" rel="noreferrer">
-                                {link.label} <span aria-hidden="true">↗</span>
+                                {link.label} <span class="external-arrow" aria-hidden="true">↑</span>
                               </a>
                             </li>
                           ))}
@@ -99,7 +99,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
                       src={talk.data.cover}
                       alt={`Cover of ${talk.data.title}`}
                       widths={[480, 820, 1200]}
-                      sizes="(max-width: 860px) min(32rem, calc(100vw - 2.5rem)), 26rem"
+                      sizes="(max-width: 450px) calc(100vw - 8vw), 26rem"
                       format="webp"
                       loading={isFirstCover ? "eager" : "lazy"}
                       fetchpriority={isFirstCover ? "high" : undefined}
@@ -117,7 +117,7 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
                       src={talk.data.cover}
                       alt={`Cover of ${talk.data.title}`}
                       widths={[480, 820, 1200]}
-                      sizes="(max-width: 860px) min(32rem, calc(100vw - 2.5rem)), 26rem"
+                      sizes="(max-width: 450px) calc(100vw - 8vw), 26rem"
                       format="webp"
                       loading={isFirstCover ? "eager" : "lazy"}
                       fetchpriority={isFirstCover ? "high" : undefined}
@@ -133,38 +133,8 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
 </BaseLayout>
 
 <style>
-  .talk-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-bottom: var(--border);
-  }
-
-  .talk {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 26rem;
-    gap: var(--space-7);
-    align-items: start;
-    padding: var(--space-6) 0;
-    border-top: var(--border);
-  }
-
-  .talk.without-cover {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .talk-copy {
-    min-width: 0;
-  }
-
   .talk-copy > .meta {
-    margin-bottom: var(--space-2);
-  }
-
-  h2 {
-    font-size: var(--text-title);
-    letter-spacing: var(--tracking-tight);
-    line-height: var(--leading-snug);
+    margin-bottom: var(--space-1);
   }
 
   h2 a {
@@ -177,17 +147,19 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
   }
 
   .description {
-    max-width: var(--width-reading);
-    margin: var(--space-3) 0 0;
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-small);
   }
 
   .talk-action {
     display: inline-block;
-    margin-top: var(--space-4);
+    margin-top: var(--space-2);
   }
 
   .talk-cover {
     display: block;
+    max-width: 26rem;
+    margin-top: var(--space-3);
     overflow: hidden;
     border: var(--border);
     border-radius: var(--radius);
@@ -232,16 +204,5 @@ const firstCoverId = talks.find((talk) => talk.data.cover)?.id;
 
   .resource-list li + li {
     margin-top: var(--space-1);
-  }
-
-  @media (max-width: 860px) {
-    .talk {
-      grid-template-columns: minmax(0, 1fr);
-      gap: var(--space-5);
-    }
-
-    .talk-cover {
-      max-width: 32rem;
-    }
   }
 </style>
