@@ -13,29 +13,29 @@ const selfName = "Jialong (Mark) Li";
 
 <article class="entry" data-tone={project.data.tone} data-kind={project.data.kind}>
   <h3>{title}</h3>
-  {(status || period) && (
-    <p class="entry-meta tabular-nums">
+  {(status || period || authors.length > 0 || collaborators.length > 0) && (
+    <p class="entry-meta meta tabular-nums">
       {status && <span class="status">{status}</span>}
-      {status && period && <span aria-hidden="true">·</span>}
-      {period && <span class="period">{period}</span>}
-    </p>
-  )}
-
-  {authors.length > 0 && (
-    <p class="credits meta">
-      <strong>Authors</strong>
-      {authors.map((author, index) => (
+      {period && <>{status && " · "}{period}</>}
+      {authors.length > 0 && (
         <>
-          {author === selfName ? <strong class="self">{author}</strong> : author}
-          {index < authors.length - 1 && ", "}
+          {(status || period) && " · "}
+          {"Authors "}
+          {authors.map((author, index) => (
+            <>
+              {author === selfName ? <strong class="self">{author}</strong> : author}
+              {index < authors.length - 1 && ", "}
+            </>
+          ))}
         </>
-      ))}
-    </p>
-  )}
-  {collaborators.length > 0 && (
-    <p class="credits meta">
-      <strong>{collaborators.length > 1 ? "Advisors" : "Advisor"}</strong>
-      {collaborators.join(", ")}
+      )}
+      {collaborators.length > 0 && (
+        <>
+          {(status || period || authors.length > 0) && " · "}
+          {collaborators.length > 1 ? "Advisors " : "Advisor "}
+          {collaborators.join(", ")}
+        </>
+      )}
     </p>
   )}
 
@@ -69,28 +69,16 @@ const selfName = "Jialong (Mark) Li";
   }
 
   .entry-meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-1) var(--space-3);
-    margin: var(--space-2) 0 0;
-    font-size: var(--text-small);
-    line-height: var(--leading-snug);
-  }
-
-  .status {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    color: var(--color-text);
-    font-weight: var(--weight-semibold);
+    margin-top: var(--space-2);
   }
 
   .status::before {
+    display: inline-block;
     width: 0.5rem;
     height: 0.5rem;
-    flex: 0 0 auto;
-    border-radius: 999px;
+    margin-inline-end: var(--space-2);
+    border-radius: 50%;
+    vertical-align: 0.05em;
     background: var(--color-muted);
     content: "";
   }
@@ -102,10 +90,6 @@ const selfName = "Jialong (Mark) Li";
   .entry[data-tone="review"] .status::before,
   .entry[data-kind="project"] .status::before {
     background: var(--color-link);
-  }
-
-  .period {
-    color: var(--color-muted);
   }
 
   h3 {
@@ -125,14 +109,6 @@ const selfName = "Jialong (Mark) Li";
     margin: var(--space-4) 0 0;
     padding: 0;
     list-style: none;
-  }
-
-  .credits {
-    margin-top: var(--space-2);
-  }
-
-  .credits > strong:first-child {
-    margin-inline-end: var(--space-1);
   }
 
   .self {
