@@ -1,5 +1,6 @@
 ---
 import { getImage } from "astro:assets";
+import { getCollection } from "astro:content";
 import educationLogos from "../assets/education-logos.png";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EmpiricalLearningMatrix from "../components/EmpiricalLearningMatrix.astro";
@@ -17,7 +18,7 @@ const affiliations = [
   },
   {
     name: "Northwestern University",
-    detail: "M.S. ML & Data Science",
+    detail: "M.S. ML & DS",
     period: "2024",
     viewBox: "64 214 150 149",
   },
@@ -28,6 +29,8 @@ const affiliations = [
     viewBox: "64 394 150 150",
   },
 ];
+
+const publishedPosts = await getCollection("blog", ({ data }) => !data.draft);
 
 const directory = [
   {
@@ -42,12 +45,16 @@ const directory = [
     blurb: "Research talks and reading-group slides.",
     action: "View talks",
   },
-  {
-    title: "Blog",
-    href: "/blog/",
-    blurb: "Notes on research, methods, and ideas.",
-    action: "Read blog",
-  },
+  ...(publishedPosts.length > 0
+    ? [
+        {
+          title: "Blog",
+          href: "/blog/",
+          blurb: "Notes on research, methods, and ideas.",
+          action: "Read blog",
+        },
+      ]
+    : []),
 ];
 
 const personSchema = {
@@ -93,15 +100,18 @@ const personSchema = {
           class="headshot"
           src="/images/mark-headshot.svg"
           alt="Jialong (Mark) Li"
-          width="216"
-          height="243"
+          width="244"
+          height="275"
         />
 
-        <div class="hero-heading">
-          <h1 id="page-title">Jialong (Mark) Li</h1>
-          <p class="role">
-            <span>Predoctoral Research Fellow</span>
-            <a class="text-link" href="https://www.gsb.stanford.edu/programs/research-fellows/community/fellows" target="_blank" rel="noopener noreferrer">Stanford Graduate School of Business</a>
+        <h1 class="hero-heading" id="page-title">Jialong (Mark) Li</h1>
+
+        <div class="bio">
+          <p>
+            I am a second-year predoctoral fellow at the Stanford Graduate School of Business, working with Professors Samuel Goldberg, Yuyan Wang, and Haim Mendelson in Quantitative Marketing and Operations, Information &amp; Technology.
+          </p>
+          <p>
+            My research combines machine learning, causal inference, and structural modeling to study online privacy and recommender systems. More broadly, my interests include human biases in decision-making, empirical industrial organization, and the development and auditing of generative AI systems.
           </p>
         </div>
 
@@ -111,16 +121,6 @@ const personSchema = {
           <li><a class="pill" href={personSchema.sameAs[1]} target="_blank" rel="noopener noreferrer">LinkedIn <span class="external-arrow" aria-hidden="true">↑</span></a></li>
           <li><a class="pill" href={personSchema.sameAs[0]} target="_blank" rel="noopener noreferrer">GitHub <span class="external-arrow" aria-hidden="true">↑</span></a></li>
         </ul>
-
-        <div class="bio">
-          <p>
-            I am a Predoctoral Research Fellow in Quantitative Marketing and Operations,
-            Information &amp; Technology at the Stanford Graduate School of Business.
-          </p>
-          <p>
-            I am an empirical researcher using machine learning, causal inference, and statistics to study how information and technology shape behavior and market outcomes. My interests include digital platforms, algorithmic design, and the economic consequences of AI.
-          </p>
-        </div>
       </div>
     </section>
 
@@ -150,7 +150,7 @@ const personSchema = {
       </ol>
     </section>
 
-    <nav class="directory" aria-label="Explore the website">
+    <nav class="directory" aria-label="Explore the website" style={`--directory-columns: ${directory.length}`}>
       {
         directory.map((item) => (
           <a href={item.href}>
@@ -168,20 +168,21 @@ const personSchema = {
 
 <style>
   .home-page {
-    --text-display: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
+    --text-display: 1.75rem;
   }
 
   .hero {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
-    grid-template-areas: "photo heading" "photo links" "photo bio";
-    gap: var(--space-4) clamp(var(--space-5), 4vw, var(--space-7));
+    grid-template-areas: "photo heading" "photo bio" "photo links";
+    grid-template-rows: auto auto 1fr;
+    gap: var(--space-3) clamp(var(--space-5), 4vw, var(--space-7));
     align-items: start;
   }
 
   .headshot {
     grid-area: photo;
-    width: clamp(8rem, 21vw, 13.5rem);
+    width: clamp(8rem, 21vw, 15.25rem);
     aspect-ratio: 8 / 9;
     border: var(--border);
     border-radius: var(--radius-card);
@@ -190,21 +191,7 @@ const personSchema = {
 
   .hero-heading {
     grid-area: heading;
-  }
-
-  .role {
-    margin: var(--space-2) 0 0;
-    color: var(--color-muted);
-    line-height: var(--leading-snug);
-  }
-
-  .role span,
-  .role a {
-    display: block;
-  }
-
-  .role a {
-    width: fit-content;
+    margin: 0;
   }
 
   .intro-links {
@@ -212,7 +199,7 @@ const personSchema = {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-    margin: 0;
+    margin: var(--space-1) 0 0;
     padding: 0;
     list-style: none;
   }
@@ -298,7 +285,7 @@ const personSchema = {
 
   .directory {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--directory-columns), minmax(0, 1fr));
     gap: var(--space-5);
   }
 
@@ -334,7 +321,8 @@ const personSchema = {
 
   @media (max-width: 47.5rem) {
     .hero {
-      grid-template-areas: "photo heading" "links links" "bio bio";
+      grid-template-areas: "photo heading" "bio bio" "links links";
+      grid-template-rows: auto;
       column-gap: var(--space-4);
     }
 
@@ -359,10 +347,6 @@ const personSchema = {
   }
 
   @media (max-width: 35rem) {
-    .role {
-      font-size: var(--text-small);
-    }
-
     .intro-links {
       column-gap: var(--space-1);
     }

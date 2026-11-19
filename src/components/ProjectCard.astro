@@ -6,32 +6,31 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { status, period, title, summary, impact: contribution, abstract, links, authors, collaborators } = project.data;
+const { status, venue, period, title, summary, impact: contribution, abstract, links, authors, collaborators } = project.data;
 const visibleLinks = project.data.kind === "paper" ? links.slice(0, 1) : links;
-const selfName = "Jialong (Mark) Li";
+const selfName = "Jialong Li";
 ---
 
 <article class="entry" data-tone={project.data.tone} data-kind={project.data.kind}>
   <h3>{title}</h3>
-  {(status || period || authors.length > 0 || collaborators.length > 0) && (
+  {authors.length > 0 && (
+    <p class="authors meta">
+      {authors.map((author, index) => (
+        <>
+          {author === selfName ? <strong class="self">{author}</strong> : author}
+          {index < authors.length - 1 && ", "}
+        </>
+      ))}
+    </p>
+  )}
+  {venue && <p class="venue meta tabular-nums">{venue}</p>}
+  {(status || period || collaborators.length > 0) && (
     <p class="entry-meta meta tabular-nums">
       {status && <span class="status">{status}</span>}
       {period && <>{status && " · "}{period}</>}
-      {authors.length > 0 && (
-        <>
-          {(status || period) && " · "}
-          {"Authors "}
-          {authors.map((author, index) => (
-            <>
-              {author === selfName ? <strong class="self">{author}</strong> : author}
-              {index < authors.length - 1 && ", "}
-            </>
-          ))}
-        </>
-      )}
       {collaborators.length > 0 && (
         <>
-          {(status || period || authors.length > 0) && " · "}
+          {(status || period) && " · "}
           {collaborators.length > 1 ? "Advisors " : "Advisor "}
           {collaborators.join(", ")}
         </>
@@ -83,11 +82,6 @@ const selfName = "Jialong (Mark) Li";
     content: "";
   }
 
-  .entry[data-tone="accepted"] .status::before {
-    background: var(--color-research-accepted);
-  }
-
-  .entry[data-tone="review"] .status::before,
   .entry[data-kind="project"] .status::before {
     background: var(--color-link);
   }
@@ -111,7 +105,17 @@ const selfName = "Jialong (Mark) Li";
     list-style: none;
   }
 
+  .authors {
+    margin-top: var(--space-2);
+  }
+
+  .venue {
+    margin-top: var(--space-1);
+    font-style: italic;
+  }
+
   .self {
+    color: var(--color-text);
     font-weight: var(--weight-semibold);
     white-space: nowrap;
   }

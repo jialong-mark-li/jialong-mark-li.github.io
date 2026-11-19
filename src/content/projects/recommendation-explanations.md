@@ -6,7 +6,7 @@ tone: ongoing
 impact: >-
   Jointly optimizes explanations and recommendations, using prediction feedback to improve LLM explanations and those explanations to improve predictions.
 summary: >-
-  RL · LLM benchmarking
+  Reinforcement learning · LLM benchmarking
 status: "Research project"
 period: "Aug 2025 – Present"
 collaborators:

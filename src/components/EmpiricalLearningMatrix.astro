@@ -50,10 +50,10 @@ const transfers = [
 <section class="learning-matrix" aria-labelledby="matrix-title">
   <h2 class="section-title" id="matrix-title">
     The Limits of Scaling<br />
-    — An Empirical Learning Matrix
+    <span class="matrix-subtitle">— An Empirical Learning Matrix</span>
   </h2>
   <p class="matrix-intro">
-    In settings such as digital platforms and online privacy, why are established modeling approaches often insufficient? To make sense of this, I map out four modeling environments below, revealing where conventional approaches reach their limits and where new possibilities emerge.
+    In settings such as digital platforms and online privacy, why can we not replicate the success of scaling laws in natural language, code, and math? To make sense of this, I map out four modeling environments below, revealing where conventional approaches reach their limits and where new possibilities emerge.
   </p>
 
   <div class="matrix-layout">
@@ -88,7 +88,7 @@ const transfers = [
   </div>
 
   <p class="matrix-explanation">
-    Empirical models work best in the lower-left corner, where rules are simple and stable, and information is abundant. Digital markets rarely offer either: consumer and firm decisions are complex and context-dependent, while available data are often limited and biased. More data and computation alone cannot overcome these fundamental limitations.
+    Empirical models work best in the lower-left corner, where rules are simple and stable, and information is abundant. Digital markets rarely offer either: people and firms keep adapting to each other, while available data are often limited and biased. More data and computation alone cannot overcome these fundamental limitations.
   </p>
   <p class="method-introduction">
     This motivates me to learn from three established modeling paradigms, adapting and combining their strengths to address the distinct challenges of digital markets:
@@ -113,6 +113,10 @@ const transfers = [
     margin-top: var(--space-6);
   }
 
+  .matrix-subtitle {
+    font-weight: var(--weight-regular);
+  }
+
   .matrix-intro {
     margin: var(--space-3) 0 var(--space-5);
   }
@@ -122,6 +126,10 @@ const transfers = [
     grid-template-columns: 7.5rem minmax(0, 1fr);
     grid-template-areas: "rules-title information" "rules panels";
     gap: var(--space-3) var(--space-4);
+    max-width: 56rem;
+    margin-inline: auto;
+    /* Offset the axis column so the 2x2 grid itself sits on the page centre. */
+    padding-inline-end: calc(7.5rem + var(--space-4));
   }
 
   .information-axis,
@@ -249,16 +257,10 @@ const transfers = [
   }
 
   .method-transfers {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4) var(--space-7);
     margin-top: var(--space-4);
-    border-block: var(--border);
-  }
-
-  .transfer {
-    padding-block: var(--space-4);
-  }
-
-  .transfer + .transfer {
-    border-top: var(--border);
   }
 
   .transfer p {
@@ -269,20 +271,30 @@ const transfers = [
     margin: var(--space-4) 0 0;
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 47.5rem) {
     .matrix-layout {
+      padding-inline-end: 0;
+    }
+
+    .method-transfers {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: "information" "panels" "rules-title" "rules";
+    }
+  }
+
+  @media (max-width: 560px) {
+    /* Keep the rules axis beside the rows it labels; only its High/Low words fit at this width. */
+    .matrix-layout {
+      grid-template-columns: 2.25rem minmax(0, 1fr);
+      grid-template-areas: "rules-title rules-title" ". information" "rules panels";
+      column-gap: var(--space-2);
     }
 
-    .rules-axis {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-template-rows: auto;
+    .rules-axis-title {
+      text-align: left;
     }
 
-    .rules-axis-title,
-    .rules-axis {
-      text-align: center;
+    .rules-label span {
+      display: none;
     }
 
     .regime {

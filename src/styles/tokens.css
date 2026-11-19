@@ -12,7 +12,7 @@
   --color-research-accepted: #8bc48b;
   --color-header: rgb(255 255 255 / 88%);
 
-  --font-sans: "Inter", "Inter Variable", sans-serif;
+  --font-sans: "Inter Variable", "Inter", sans-serif;
   --text-display: clamp(2rem, 1.45rem + 2vw, 2.75rem);
   --text-title: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
   --text-body: 1.0625rem;

@@ -6,8 +6,7 @@ tone: review
 impact: >-
   Establishes a common benchmark for order-book prediction across assets and tasks, and introduces a lightweight module that helps general time-series models better predict returns.
 summary: >-
-  Model benchmarking · Feature ablations
-status: "Under review"
+  Time-series forecasting · Training infrastructure · ML benchmarking · Paper writing
 authors:
   - Weijian Li
   - Stephen S. Cheng
@@ -15,7 +14,7 @@ authors:
   - Jigyasa Kumari
   - Alex Pyo
   - Mehak Kawatra
-  - Jialong (Mark) Li
+  - Jialong Li
   - Jiayi Wang
   - Ammar Gilani
   - Jingya Xun

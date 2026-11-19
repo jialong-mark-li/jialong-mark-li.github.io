@@ -13,6 +13,7 @@ const projects = defineCollection({
     kind: z.enum(["paper", "project"]),
     tone: z.enum(["accepted", "review", "ongoing", "archive"]),
     status: z.string().optional(),
+    venue: z.string().optional(),
     period: z.string().optional(),
     authors: z.array(z.string()).default([]),
     collaborators: z.array(z.string()).default([]),
