@@ -126,7 +126,7 @@ const transfers = [
     grid-template-columns: 7.5rem minmax(0, 1fr);
     grid-template-areas: "rules-title information" "rules panels";
     gap: var(--space-3) var(--space-4);
-    max-width: 56rem;
+    max-width: 74rem;
     margin-inline: auto;
     /* Offset the axis column so the 2x2 grid itself sits on the page centre. */
     padding-inline-end: calc(7.5rem + var(--space-4));
@@ -235,6 +235,12 @@ const transfers = [
 
   .regime li + li {
     margin-top: var(--space-1);
+  }
+
+  @media (min-width: 75rem) {
+    .regime li {
+      white-space: nowrap;
+    }
   }
 
   .solution {

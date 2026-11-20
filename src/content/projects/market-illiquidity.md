@@ -7,7 +7,6 @@ impact: >-
   Uses LLMs and machine learning to understand and predict how market liquidity evolves in response to events.
 summary: >-
   Event-conditioned prediction · LLM modeling · Financial data engineering
-status: "Research project"
 period: "Aug 2025 – Jan 2026"
 collaborators:
   - Haim Mendelson

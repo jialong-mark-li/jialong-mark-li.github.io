@@ -7,7 +7,6 @@ impact: >-
   Supports collaboration across insurers through federated learning without sharing raw customer data.
 summary: >-
   Privacy-preserving ML · Federated learning
-status: "Research project"
 period: "Aug 2022 – Jan 2023"
 collaborators:
   - Runhuan Feng
